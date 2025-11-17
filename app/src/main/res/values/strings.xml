@@ -6,4 +6,7 @@
 <string name="profit_loss">Profit &amp; Loss *</string>
 <string name="something_went_wrong">Something went wrong</string>
 <string name="retry">Retry</string>
+<string name="net_qnt">NET QTY: </string>
+<string name="ltp">LTP: </string>
+<string name="p_l">P&amp;L: </string>
 </resources>
