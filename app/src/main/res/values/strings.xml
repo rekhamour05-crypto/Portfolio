@@ -1,0 +1,7 @@
+<resources>
+    <string name="app_name">Portfolio</string>
+    <string name="current_value">Current value *</string>
+    <string name="total_investment">Total Investment *</string>
+    <string name="today_profit">Today\'s Profit &amp;Loss *</string>
+<string name="profit_loss">Profit &amp; Loss</string>
+</resources>
