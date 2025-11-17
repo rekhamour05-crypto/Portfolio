@@ -11,10 +11,7 @@ data class Holding(
     val totalInvestment = avgPrice * qty
     val pnl: Double = currentHoldingValue - totalInvestment
 
-    val pnlPercent: Double
-        get() = (pnl / (avgPrice * qty)) * 100
-    val todaysPnL: Double get() = (close - ltp) * qty   // ✔ NECESSARY
-
+    val todaysPnL: Double get() = (ltp - close) * qty
 
 }
 

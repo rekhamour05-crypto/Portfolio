@@ -28,6 +28,7 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
@@ -38,10 +39,13 @@ import com.example.rekha.portfolioapp.presentation.holdings.viewmodel.PortfolioV
 import com.example.rekha.portfolioapp.presentation.holdings.reusables.AppToolbar
 import com.example.rekha.portfolioapp.presentation.holdings.reusables.HoldingsList
 import com.example.rekha.portfolioapp.presentation.holdings.reusables.PortfolioSummaryCard
+import com.example.rekha.portfolioapp.presentation.holdings.reusables.RetryButton
+import com.example.rekha.portfolioapp.presentation.holdings.reusables.ShimmerList
 import com.example.rekha.ui.theme.HoldingsTheme
 import java.text.DecimalFormat
 import kotlin.math.pow
 import kotlin.math.round
+import com.example.rekha.R
 
 
 val currencyFormat = DecimalFormat("₹#,##0.00")
@@ -63,19 +67,35 @@ fun PortfolioScreen() {
         ) {
             when {
                 state.isLoading -> {
-                    // Show a loading indicator while data is being fetched
-                    Box(modifier = Modifier.fillMaxSize(), contentAlignment = Alignment.Center) {
-                        CircularProgressIndicator()
+                    Column(
+                        modifier = Modifier
+                            .fillMaxSize()
+                            .padding(16.dp),
+                        verticalArrangement = Arrangement.Top
+                    ) {
+                        ShimmerList()
                     }
                 }
 
-                state.errorMessage != null -> {
-                    // Show error message
-                    Box(modifier = Modifier.fillMaxSize(), contentAlignment = Alignment.Center) {
-                        Text(
-                            "Error: ${state.errorMessage}",
-                            color = MaterialTheme.colorScheme.error
-                        )
+                state.errorMessage  != null -> {
+                    Box(
+                        modifier = Modifier
+                            .fillMaxSize()
+                            .padding(16.dp),
+                        contentAlignment = Alignment.Center
+                    ) {
+                        Column(horizontalAlignment = Alignment.CenterHorizontally) {
+
+                            Text(
+                                text = state.errorMessage ?: stringResource(R.string.something_went_wrong),
+                                color = MaterialTheme.colorScheme.error,
+                                fontWeight = FontWeight.SemiBold
+                            )
+
+                            Spacer(modifier = Modifier.height(12.dp))
+
+                            RetryButton(onRetry = { viewModel.loadHoldings() })
+                        }
                     }
                 }
 

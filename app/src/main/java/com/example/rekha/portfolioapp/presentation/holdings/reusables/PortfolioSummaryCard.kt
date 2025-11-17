@@ -34,6 +34,7 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import com.example.rekha.R
 import com.example.rekha.portfolioapp.presentation.holdings.screen.currencyFormat
+import com.example.rekha.portfolioapp.presentation.holdings.screen.roundTo
 import com.example.rekha.portfolioapp.presentation.holdings.state.PortfolioSummary
 import com.example.rekha.ui.theme.PrimaryGreen
 import com.example.rekha.ui.theme.PrimaryRed
@@ -41,10 +42,12 @@ import com.example.rekha.ui.theme.TextPrimary
 
 @Composable
 fun PortfolioSummaryCard(summary: PortfolioSummary, isExpanded: Boolean, onToggleExpand: () -> Unit) {
-    val pnlColor = if (summary.netPnL >= 0) PrimaryGreen else PrimaryRed
+    val todaysPL = summary.todaysPnL
+    val totalTodayPL =  todaysPL.roundTo(2)
+    val pnlColor = if (summary.netPnL >= 0.0) PrimaryGreen else PrimaryRed
+    val pnlColorForToday = if (totalTodayPL >= 0.0) PrimaryGreen else PrimaryRed
     Card(modifier  = Modifier
         .fillMaxWidth()
-        // Clip to a sharp, zero-radius shape to enforce full width flush edges
         .clip(MaterialTheme.shapes.large)
         .windowInsetsPadding(WindowInsets.safeDrawing.only(WindowInsetsSides.Horizontal)),
         colors = CardDefaults.cardColors(containerColor = MaterialTheme.colorScheme.surfaceDim),
@@ -60,7 +63,7 @@ fun PortfolioSummaryCard(summary: PortfolioSummary, isExpanded: Boolean, onToggl
                 SummaryItem(label= stringResource(R.string.total_investment), summary.totalInvestment, Color.Black)
                 Spacer(modifier = Modifier.height(16.dp))
 
-                SummaryItem(stringResource(R.string.today_profit), summary.todaysPnL, pnlColor)
+                SummaryItem(stringResource(R.string.today_profit), totalTodayPL, pnlColorForToday)
                 Spacer(modifier = Modifier.height(16.dp))
 
                 HorizontalDivider(modifier = Modifier.padding(vertical = 12.dp))
@@ -74,7 +77,7 @@ fun PortfolioSummaryCard(summary: PortfolioSummary, isExpanded: Boolean, onToggl
                 verticalAlignment = Alignment.CenterVertically,
             ) {
                 Row(verticalAlignment = Alignment.CenterVertically) {
-                    Text("Profit & Loss", fontWeight = FontWeight.SemiBold)
+                    Text(stringResource(R.string.profit_loss), fontWeight = FontWeight.SemiBold)
                     Icon(
                         imageVector = if (isExpanded) Icons.Filled.KeyboardArrowUp else Icons.Filled.KeyboardArrowDown,
                         contentDescription = if (isExpanded) "Collapse" else "Expand",

@@ -5,12 +5,9 @@ import com.example.rekha.portfolioapp.domain.repository.HoldingsRepository
 import com.example.rekha.portfolioapp.domain.usecase.GetHoldingsUseCase
 import com.google.common.truth.Truth.assertThat
 import io.mockk.coEvery
-import io.mockk.every
 import io.mockk.mockk
 import kotlinx.coroutines.flow.first
-import kotlinx.coroutines.flow.flowOf
 import kotlinx.coroutines.flow.toList
-import kotlinx.coroutines.test.TestScope
 import kotlinx.coroutines.test.runTest
 import org.junit.Test
 

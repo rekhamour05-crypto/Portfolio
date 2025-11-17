@@ -54,17 +54,15 @@ class PortfolioViewModel @Inject constructor(
     private fun calculateSummary(holdings: List<Holding>): PortfolioSummary {
         val totalInvestment = holdings.sumOf { it.totalInvestment }
         val currentValue = holdings.sumOf { it.currentHoldingValue }
-        val netPnL = currentValue - totalInvestment
-
-        val todaysPnL = holdings.sumOf { it.todaysPnL }
+        val todaysPnL = holdings.sumOf { -it.todaysPnL }
 
         return PortfolioSummary(
-            currentValue = roundToTwoDecimals(currentValue),
-            totalInvestment = roundToTwoDecimals(totalInvestment),
-            todaysPnL = roundToTwoDecimals(todaysPnL),
+            currentValue = round(currentValue),
+            totalInvestment = round(totalInvestment),
+            todaysPnL = round(todaysPnL)
         )
     }
-    private fun roundToTwoDecimals(value: Double): Double {
-        return (value * 100).roundToInt() / 100.0
-    }
+
+    private fun round(value: Double): Double =
+        (value * 100).roundToInt() / 100.0
 }
