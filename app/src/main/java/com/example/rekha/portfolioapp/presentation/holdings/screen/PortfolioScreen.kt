@@ -142,13 +142,6 @@ fun HoldingsScreenPreview() {
     )
 
     HoldingsTheme {
-        Column(modifier = Modifier.background(MaterialTheme.colorScheme.background)) {
-            //PortfolioSummaryCard(previewState)
-            LazyColumn {
-//                items(fakeHoldings) { holding ->
-//                    HoldingItem(holding)
-//                }
-            }
-        }
+      PortfolioScreen()
     }
 }
